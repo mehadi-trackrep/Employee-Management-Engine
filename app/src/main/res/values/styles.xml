@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--<style name="Widget.Button.Transparent">-->
+        <!--<item name="background">@drawable/btn_default_transparent</item>-->
+        <!--<item name="textAppearance">?attr/textAppearanceSmall</item>-->
+        <!--<item name="textColor">@color/white</item>-->
+    <!--</style>-->
+
+
+</resources>

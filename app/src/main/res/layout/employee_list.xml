@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:backgroundTint="@color/colorFav"
+    android:alpha="1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mmh_49.employeemanagement.EmployeeListActivity">
+
+    <TextView
+        android:id="@+id/tv_employlist"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:drawableBottom="@color/colorPrimaryDark"
+        android:layout_width="446dp"
+        android:layout_height="71dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="46dp"
+        android:text="@string/EmployeeList"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
