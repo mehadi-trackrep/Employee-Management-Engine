@@ -8,8 +8,38 @@
     android:padding="4dp"
     >
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_employeeList"
+        android:layout_width="match_parent"
+        android:layout_height="425dp"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:scrollbars="vertical" />
+
+
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/data_import"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/database_import" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/data_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/database_export"
+         />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_employee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
@@ -18,12 +48,5 @@
         android:layout_marginBottom="16dp"
         android:src="@android:drawable/ic_input_add" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_employeeList"
-        android:layout_width="match_parent"
-        android:layout_height="385dp"
-        android:orientation="vertical"
-        android:paddingBottom="8dp"
-        android:scrollbars="vertical" />
 
 </FrameLayout>

@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="5"
-            android:src="@drawable/ic_image_black_24dp" />
+            android:layout_weight="4"
+            android:src="@drawable/user_icon" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -28,15 +28,17 @@
 
             <TextView
                 android:id="@+id/employee_name"
-                android:layout_width="220dp"
+                android:layout_marginTop="12sp"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
                 android:layout_marginLeft="10dp"
+                android:layout_weight="5"
+                android:fontFamily="monospace"
+                android:textSize="25sp"
                 android:hint="@string/enter_name"
                 android:shadowColor="@color/colorAccent"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
-                android:textSize="12dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -45,12 +47,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/employee_name"
                 android:layout_weight="5"
+                android:fontFamily="monospace"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:hint="@string/enter_number"
                 android:shadowColor="@color/colorAccent"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
-                android:textSize="12dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -60,11 +63,12 @@
                 android:layout_below="@+id/employee_age"
                 android:layout_weight="5"
                 android:layout_marginLeft="10dp"
+                android:fontFamily="monospace"
+                android:textSize="10dp"
                 android:hint="@string/gender"
                 android:shadowColor="@color/colorAccent"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
-                android:textSize="12dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -72,18 +76,18 @@
             android:id="@+id/edit_employee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="10"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/ic_edit_black_24dp" />
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/edit_icon" />
 
         <ImageView
             android:id="@+id/delete_employee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="10"
-            android:src="@drawable/ic_delete_black_24dp" />
+            android:layout_weight="5"
+            android:src="@drawable/delete_icon" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

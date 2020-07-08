@@ -4,8 +4,10 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/search_icon"
         android:title="Search"
+        android:queryHint="Search Employee Name..."
+        android:iconifiedByDefault="false"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 </menu>

@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements
             Toast.makeText(this, "There are no employees in the database. Start adding new one!", Toast.LENGTH_LONG).show();
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton add_employee = (FloatingActionButton) findViewById(R.id.add_employee);
+        add_employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addTaskDialog();
@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spin.setAdapter(aa);
+
+        ///For Image uploading:
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add new EMPLOYEE");
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements
 
         MenuItem search = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+//        searchView.getQueryHint("Search Employee Name...");
         search(searchView);
         return true;
     }
