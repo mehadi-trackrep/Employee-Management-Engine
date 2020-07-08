@@ -16,25 +16,18 @@ public class EmployeeModel {
     public EmployeeModel(String name, String age, String gender, String img) {
         this.name = name;
         this.age = age;
-        this.img = img;
         this.gender = gender;
+        this.img = img;
     }
 
     public EmployeeModel(int id, String name, String age, String gender, String img) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.img = img;
         this.gender = gender;
+        this.img = img;
     }
 
-    public EmployeeModel(){
-        this.id = -1;
-        this.name = null;
-        this.age = null;
-        this.img = null;
-        this.gender = null;
-    }
     ///getters & setters
 
     public int getId() {

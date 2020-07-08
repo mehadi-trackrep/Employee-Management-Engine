@@ -4,7 +4,11 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
@@ -15,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,13 +33,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
 import java.lang.*;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
-    //private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName(); //For log cat!!
 
     private SqliteDatabase mDatabase;
     private ArrayList<EmployeeModel> allEmployees = new ArrayList<>();
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements
     ///for image:
     ImageView mImageView;
     Button mUploadButton;
+    private String image_path = null;
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
@@ -103,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements
     private void pickImageFromGallery(){
         //Intent to pick image from gallery
         Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
+        intent.setType("image/*"); //All type of image!
         startActivityForResult(intent, IMAGE_PICK_CODE);
     }
 
@@ -111,7 +118,24 @@ public class MainActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE){
             //set image to image view
+            Uri selectedImageURI = data.getData();
+            File imageFile = new File(getRealPathFromURI(selectedImageURI));
+//            String ck_file = "/storage/emulated/0/DCIM/Camera/IMG_20200706_134223.jpg";
+            Log.w(TAG, "##########################Debug--> Image File Path: " + imageFile.toString());
+//            mImageView.setImageURI(Uri.fromFile(new File(ck_file)));
+            image_path = imageFile.toString();
             mImageView.setImageURI(data.getData());
+        }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            return contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(idx);
         }
     }
 
@@ -143,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements
         // TODO Auto-generated method stub
     }
 
-    private void addTaskDialog(){
+    private void addTaskDialog(){  //New Employee data store...
         LayoutInflater inflater = LayoutInflater.from(this);
         View subView = inflater.inflate(R.layout.add_employee_layout, null); /// 'null' hole... other activity te jabe na!
 
@@ -151,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements
         mImageView = (ImageView)subView.findViewById(R.id.image_view);
         mUploadButton = (Button)subView.findViewById(R.id.upload_image);
 
-        //handle button click
+        //handle image button click
         mUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,8 +195,6 @@ public class MainActivity extends AppCompatActivity implements
         //Setting the ArrayAdapter data on the Spinner
         spin.setAdapter(aa);
 
-        ///For Image uploading:
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add new EMPLOYEE");
         builder.setView(subView);
@@ -184,12 +206,13 @@ public class MainActivity extends AppCompatActivity implements
                 final String name = nameField.getText().toString();
                 final String age = ageField.getText().toString();
 
-                if(TextUtils.isEmpty(name) || selected_gender == "Select sex"){
+                if(TextUtils.isEmpty(name) || selected_gender == "Select sex" || image_path == null){
                     Toast.makeText(MainActivity.this, "Something went wrong. Check your input values", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    EmployeeModel newEmployee = new EmployeeModel(name, age, selected_gender, null); ///Data is sent to the model
+                    EmployeeModel newEmployee = new EmployeeModel(name, age, selected_gender, image_path); ///Data is sent to the model
                     mDatabase.addEmployees(newEmployee); ///Insert new employee to database via model (getting values from model)
+                    image_path = null; //Global Variable
 
                     finish();
                     startActivity(getIntent());

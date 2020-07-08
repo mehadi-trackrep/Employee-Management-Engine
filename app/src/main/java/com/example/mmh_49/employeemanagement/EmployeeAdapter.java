@@ -3,6 +3,7 @@ package com.example.mmh_49.employeemanagement;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.widget.Filterable;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -53,8 +55,11 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeViewHolder> im
     public void onBindViewHolder(EmployeeViewHolder holder, int position) {
         final EmployeeModel employeeModel = listEmployees.get(position);
 
-        holder.employee_name.setText(employeeModel.getName());
-        holder.employee_age.setText(employeeModel.getAge());
+        holder.employee_name.setText("Name: " + employeeModel.getName());
+        holder.employee_age.setText("Age: " + employeeModel.getAge());
+        holder.employee_gender.setText("Sex: " + employeeModel.getGender());
+
+        holder.employee_image.setImageURI(Uri.fromFile(new File(employeeModel.getImg())));
 
         holder.edit_employee.setOnClickListener(new View.OnClickListener() {
             @Override

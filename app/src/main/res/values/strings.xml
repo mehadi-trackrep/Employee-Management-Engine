@@ -2,7 +2,7 @@
     <string name="app_name">EmployeeManagement</string>
     <string name="NewEmployee">New Employee</string>
     <string name="ShowAll">Show All</string>
-    <string name="UpdateEmployee" >Update Employee</string>
+    <string name="UpdateEmployee">Update Employee</string>
     <string name="DeleteEmployee">Delete Employee</string>
     <string name="ExportData">Export Data</string>
     <string name="ImportData">Import Data</string>

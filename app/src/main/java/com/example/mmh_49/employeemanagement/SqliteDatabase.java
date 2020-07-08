@@ -68,7 +68,7 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, employeeModel.getName());
         values.put(COLUMN_AGE, employeeModel.getAge());
         values.put(COLUMN_GENDER, employeeModel.getGender());
-        values.put(COLUMN_IMAGE, String.valueOf(employeeModel.getImg())); ///image e blob, string e jhamela ace, initially test !!!!!!!!!!
+        values.put(COLUMN_IMAGE, employeeModel.getImg()); ///image e blob, string e jhamela ace, initially test !!!!!!!!!!
 
         android.database.sqlite.SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPLOYEES, null, values);
@@ -84,7 +84,7 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         db.update(TABLE_EMPLOYEES, values, COLUMN_ID	+ "	= ?", new String[] { String.valueOf(employeeModel.getId())});
     }
 
-    public EmployeeModel findContacts(String name){
+    public EmployeeModel findEmployees(String name){
         String query = "Select * FROM "	+ TABLE_EMPLOYEES + " WHERE " + COLUMN_NAME + " = " + "name";
         android.database.sqlite.SQLiteDatabase db = this.getWritableDatabase();
         EmployeeModel employeeModel = null;
@@ -95,8 +95,8 @@ public class SqliteDatabase extends SQLiteOpenHelper {
             String employeeName = cursor.getString(1);
             String employeeAge = cursor.getString(2);
             String employeeGender = cursor.getString(3);
-//            String employeeImage = cursor.getString(2);
-            employeeModel = new EmployeeModel(id, employeeName, employeeAge, employeeGender, null);
+            String employeeImage = cursor.getString(4);
+            employeeModel = new EmployeeModel(id, employeeName, employeeAge, employeeGender, employeeImage);
         }
         cursor.close();
         return employeeModel;
