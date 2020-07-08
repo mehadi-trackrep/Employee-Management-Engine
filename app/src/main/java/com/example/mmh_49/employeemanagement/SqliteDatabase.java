@@ -68,7 +68,7 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, employeeModel.getName());
         values.put(COLUMN_AGE, employeeModel.getAge());
         values.put(COLUMN_GENDER, employeeModel.getGender());
-        values.put(COLUMN_IMAGE, employeeModel.getImg()); ///image e blob, string e jhamela ace, initially test !!!!!!!!!!
+        values.put(COLUMN_IMAGE, employeeModel.getImg());
 
         android.database.sqlite.SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPLOYEES, null, values);
@@ -79,7 +79,7 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, employeeModel.getName());
         values.put(COLUMN_AGE, employeeModel.getAge());
         values.put(COLUMN_GENDER, employeeModel.getGender());
-        values.put(COLUMN_IMAGE, String.valueOf(employeeModel.getImg())); ///image e blob, string e jhamela ace, initially test !!!!!!!!!!
+        values.put(COLUMN_IMAGE, String.valueOf(employeeModel.getImg()));
         android.database.sqlite.SQLiteDatabase db = this.getWritableDatabase();
         db.update(TABLE_EMPLOYEES, values, COLUMN_ID	+ "	= ?", new String[] { String.valueOf(employeeModel.getId())});
     }

@@ -33,9 +33,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
@@ -55,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
+
+    //File-import-export
+    private static final String FILE_NAME = "employee_data.csv";
+    EditText mEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {  ///Database onCreate() all pre-tasks
@@ -81,6 +94,22 @@ public class MainActivity extends AppCompatActivity implements
             Toast.makeText(this, "There are no employees in the database. Start adding new one!", Toast.LENGTH_LONG).show();
         }
 
+        ///All bottom floating button handles:
+        FloatingActionButton import_database = (FloatingActionButton) findViewById(R.id.data_import);
+        import_database.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                importTaskDatabase(view);
+            }
+        });
+        FloatingActionButton export_database = (FloatingActionButton) findViewById(R.id.data_export);
+        export_database.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exportTaskDatabase(view);
+            }
+        });
+
         FloatingActionButton add_employee = (FloatingActionButton) findViewById(R.id.add_employee);
         add_employee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +117,61 @@ public class MainActivity extends AppCompatActivity implements
                 addTaskDialog();
             }
         });
-
     }
 
+    ///File import-export
+    private void importTaskDatabase(View view){
+        load(view);
+    }
+    private void exportTaskDatabase(View view){
+        save(view);
+    }
+
+    public void save(View v) {
+        try {
+            FileWriter csvWriter = new FileWriter(FILE_NAME);
+            int count = 0;
+            while (allEmployees.size() > count) {
+                csvWriter.append(allEmployees.get(0).getId() + ",");
+                csvWriter.append(allEmployees.get(0).getName() + ",");
+                csvWriter.append(allEmployees.get(0).getAge() + ",");
+                csvWriter.append(allEmployees.get(0).getGender() + ",");
+                csvWriter.append(allEmployees.get(0).getImg() + ",");
+                count++;
+            }
+            csvWriter.flush();
+            Toast.makeText(this, "Data backed up to " + getFilesDir() + "/" + FILE_NAME,
+                    Toast.LENGTH_LONG).show();
+            csvWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+        }
+    }
+    public void load(View v) {
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader(FILE_NAME));
+
+            String row;
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",");
+                EmployeeModel newEmployee = new EmployeeModel(data[1], data[2], data[3], data[4]); ///Data is sent to the model
+                mDatabase.addEmployees(newEmployee); ///Insert new employee to database via model (getting values from model)
+            }
+            Toast.makeText(this, "Data Imported from " + FILE_NAME, Toast.LENGTH_SHORT).show();
+            csvReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+    }
+
+    ///Image upload-store necessary methods
     private void uploadImageTask(){
         //check runtime permission:
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -120,9 +201,9 @@ public class MainActivity extends AppCompatActivity implements
             //set image to image view
             Uri selectedImageURI = data.getData();
             File imageFile = new File(getRealPathFromURI(selectedImageURI));
-//            String ck_file = "/storage/emulated/0/DCIM/Camera/IMG_20200706_134223.jpg";
-            Log.w(TAG, "##########################Debug--> Image File Path: " + imageFile.toString());
-//            mImageView.setImageURI(Uri.fromFile(new File(ck_file)));
+            //String ck_file = "/storage/emulated/0/DCIM/Camera/IMG_20200706_134223.jpg";
+            ///Log.w(TAG, "#############MMH49#############Debug--> Image File Path: " + imageFile.toString());
+            //mImageView.setImageURI(Uri.fromFile(new File(ck_file)));
             image_path = imageFile.toString();
             mImageView.setImageURI(data.getData());
         }
