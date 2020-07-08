@@ -7,4 +7,11 @@
     <string name="ExportData">Export Data</string>
     <string name="ImportData">Import Data</string>
     <string name="EmployeeList">Employee List</string>
+    <string name="tvNewEmployee">New Employee Info</string>
+
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_number">Enter Number</string>
+
+    <string name="enter_age">Enter Age</string>
+    <string name="gender">Gender</string>
 </resources>
